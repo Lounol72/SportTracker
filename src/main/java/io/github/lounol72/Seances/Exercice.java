@@ -1,6 +1,7 @@
 package io.github.lounol72.Seances;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -30,11 +31,20 @@ public class Exercice {
     return nom;
   }
 
+  /**
+   * Liste des séries, en lecture seule.
+   *
+   * @return les séries dans l'ordre où elles ont été faites
+   */
+  public List<Serie> getSeries() {
+    return Collections.unmodifiableList(series);
+  }
+
   public void afficher() {
     System.out.println(" Exercice <" + nom + "> :");
-    for (Serie s : series) {
-      System.out.println("Série n°" + series.indexOf(s));
-      s.afficher();
+    for (int i = 0; i < series.size(); i++) {
+      System.out.println("Série n°" + (i + 1));
+      series.get(i).afficher();
     }
   }
 

@@ -1,21 +1,20 @@
 package io.github.lounol72.Seances;
 
-import java.time.LocalTime;
+import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Seance {
   private String nom;
   private List<Exercice> exercices;
-  private LocalTime duree;
-
+  private Duration duree;
 
   public Seance(String nom) {
-    this.nom = nom;
-    this.exercices = new ArrayList<Exercice>();
+    this(nom, Duration.ZERO);
   }
-  
-  public Seance(String nom, LocalTime duree) {
+
+  public Seance(String nom, Duration duree) {
     this.nom = nom;
     this.duree = duree;
     this.exercices = new ArrayList<Exercice>();
@@ -31,20 +30,34 @@ public class Seance {
     }
   }
 
-  public void afficherSeance(){
+  public void afficherSeance() {
     System.out.println("Seance <" + this.nom + "> : \n");
-    System.out.println(" Durée : " + duree);
+    System.out.printf(
+        " Durée : %d h %02d min %02d s%n",
+        duree.toHours(), duree.toMinutesPart(), duree.toSecondsPart());
     for (Exercice exercice : exercices) {
       exercice.afficher();
       System.out.println("\n");
     }
   }
-  public void setDuree(LocalTime duree) {
+
+  /**
+   * Liste des exercices, en lecture seule.
+   *
+   * @return les exercices dans l'ordre de la séance
+   */
+  public List<Exercice> getExercices() {
+    return Collections.unmodifiableList(exercices);
+  }
+
+  public void setDuree(Duration duree) {
     this.duree = duree;
   }
-  public LocalTime getDuree() {
+
+  public Duration getDuree() {
     return duree;
   }
+
   public String getNom() {
     return nom;
   }

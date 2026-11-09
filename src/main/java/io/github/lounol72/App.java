@@ -1,6 +1,8 @@
 package io.github.lounol72;
 
 import io.github.lounol72.Seances.Importer;
+import io.github.lounol72.Seances.Seance;
+import java.util.List;
 
 /**
  * Class App
@@ -13,11 +15,14 @@ public class App {
    * Main function for the application
    */
   public static void main(String[] args) {
-    System.out.println("Hello World!");
     try {
-      Importer.impoterSeance(ASSET_FOLDER + "liftoff_workout_data.csv");
+      List<Seance> seances = Importer.importerSeances(ASSET_FOLDER + "liftoff_workout_data.csv");
+      for (Seance s : seances) {
+        s.afficherSeance();
+      }
+      System.out.println(seances.size() + " séances importées");
     } catch (Exception e) {
-      System.err.println(" Affichage du fichier impossible : " + e);
+      System.err.println(" Import du fichier impossible : " + e);
     }
   }
 }
